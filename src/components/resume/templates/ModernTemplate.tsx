@@ -22,109 +22,42 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto bg-white text-black font-sans">
+    <div className="p-8 max-w-[8.5in] mx-auto bg-white text-black text-sm leading-normal">
       {/* Header */}
-      <header className="mb-8">
-        <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2 tracking-wide">
-            {data.personalInfo.fullName || 'YOUR NAME'}
+      <header className="mb-6">
+        <div className="text-center mb-4">
+          <h1 className="text-base font-normal mb-1">
+            {data.personalInfo.fullName || 'First Last'}
           </h1>
-          <p className="text-lg text-orange-600 font-medium mb-4 tracking-wider">
-            {data.personalInfo.title || 'Your Professional Title'}
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-700">
-            {data.personalInfo.email && (
-              <span>{data.personalInfo.email}</span>
-            )}
-            {data.personalInfo.phone && (
-              <span>{formatPhoneNumber(data.personalInfo.phone)}</span>
-            )}
-            {data.personalInfo.location && (
-              <span>{data.personalInfo.location}</span>
-            )}
-            {data.personalInfo.linkedin && (
-              <span>{data.personalInfo.linkedin}</span>
-            )}
-            {data.personalInfo.website && (
-              <span>{data.personalInfo.website}</span>
-            )}
+          <div className="text-sm">
+            {data.personalInfo.email && <span>{data.personalInfo.email}</span>}
+            {data.personalInfo.phone && <span> | {formatPhoneNumber(data.personalInfo.phone)}</span>}
+            {data.personalInfo.location && <span> | {data.personalInfo.location}</span>}
           </div>
         </div>
       </header>
 
-      {/* Summary */}
-      {data.summary && (
-        <section className="mb-7">
-          <h2 className="text-lg font-bold text-gray-900 mb-3 uppercase tracking-wider">
-            SUMMARY
-          </h2>
-          <p className="text-gray-700 leading-relaxed text-sm">
-            {data.summary}
-          </p>
-        </section>
-      )}
-
-      {/* Skills */}
-      {data.skills.length > 0 && (
-        <section className="mb-7">
-          <h2 className="text-lg font-bold text-gray-900 mb-4 uppercase tracking-wider">
-            SKILLS
-          </h2>
-          <div className="space-y-3">
-            {['technical', 'tools', 'languages', 'soft'].map((category) => {
-              const categorySkills = data.skills.filter(skill => skill.category === category);
-              if (categorySkills.length === 0) return null;
-              
-              return (
-                <div key={category}>
-                  <h3 className="font-semibold text-gray-900 mb-2 text-sm">
-                    {category === 'technical' ? 'Project Management' : 
-                     category === 'tools' ? 'Leadership' :
-                     category === 'languages' ? 'Cost Management' : 
-                     category === 'soft' ? 'Cloud Knowledge' : category}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {categorySkills.map((skill) => (
-                      <span
-                        key={skill.id}
-                        className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-medium border border-orange-200"
-                      >
-                        {skill.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
       {/* Experience */}
       {data.experience.length > 0 && (
-        <section className="mb-7">
-          <h2 className="text-lg font-bold text-gray-900 mb-4 uppercase tracking-wider">
+        <section className="mb-6">
+          <h2 className="text-sm font-normal mb-3 border-b border-black pb-1 uppercase">
             EXPERIENCE
           </h2>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {data.experience.map((exp) => (
-              <div key={exp.id} className="relative">
-                <div className="flex justify-between items-start mb-2">
+              <div key={exp.id}>
+                <div className="flex justify-between items-start mb-1">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-bold text-gray-700">
-                        {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
-                      </span>
-                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    </div>
-                    <h3 className="font-bold text-gray-900 text-base mb-1">{exp.title}</h3>
-                    <p className="text-orange-600 font-semibold text-sm mb-1">{exp.company}</p>
-                    {exp.location && <p className="text-gray-600 text-xs mb-2">{exp.location}</p>}
+                    <h3 className="text-sm font-normal">{exp.title}</h3>
+                    <p className="text-sm">{exp.company}</p>
+                  </div>
+                  <div className="text-sm text-right">
+                    <div>{formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}</div>
+                    <div>{exp.location}</div>
                   </div>
                 </div>
                 {exp.description && (
-                  <div className="text-gray-700 text-xs leading-relaxed">
+                  <div className="text-sm mt-2">
                     {exp.description.split('\n').map((line, index) => (
                       <div key={index} className="mb-1">
                         • {line}
@@ -140,25 +73,22 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
 
       {/* Education */}
       {data.education.length > 0 && (
-        <section className="mb-7">
-          <h2 className="text-lg font-bold text-gray-900 mb-4 uppercase tracking-wider">
+        <section className="mb-6">
+          <h2 className="text-sm font-normal mb-3 border-b border-black pb-1 uppercase">
             EDUCATION
           </h2>
           <div className="space-y-4">
             {data.education.map((edu) => (
-              <div key={edu.id} className="relative">
+              <div key={edu.id}>
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-bold text-gray-700">
-                        {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
-                      </span>
-                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    </div>
-                    <h3 className="font-bold text-gray-900 text-base mb-1">{edu.degree}</h3>
-                    <p className="text-orange-600 font-semibold text-sm">{edu.institution}</p>
-                    {edu.location && <p className="text-gray-600 text-xs">{edu.location}</p>}
-                    {edu.gpa && <p className="text-gray-600 text-xs">GPA: {edu.gpa}</p>}
+                    <h3 className="text-sm font-normal">{edu.degree}</h3>
+                    <p className="text-sm">{edu.institution}</p>
+                    {edu.gpa && <p className="text-sm">GPA: {edu.gpa}</p>}
+                  </div>
+                  <div className="text-sm text-right">
+                    <div>{formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}</div>
+                    <div>{edu.location}</div>
                   </div>
                 </div>
               </div>
@@ -167,36 +97,63 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         </section>
       )}
 
+      {/* Skills */}
+      {data.skills.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-sm font-normal mb-3 border-b border-black pb-1 uppercase">
+            SKILLS
+          </h2>
+          <div className="space-y-2">
+            {['technical', 'tools', 'languages', 'soft'].map((category) => {
+              const categorySkills = data.skills.filter(skill => skill.category === category);
+              if (categorySkills.length === 0) return null;
+              
+              return (
+                <div key={category} className="flex">
+                  <span className="text-sm w-24 font-normal">
+                    {category === 'technical' ? 'Technical Skills' : 
+                     category === 'tools' ? 'Tools' :
+                     category === 'languages' ? 'Languages' : 
+                     category === 'soft' ? 'Soft Skills' : category}:
+                  </span>
+                  <span className="text-sm flex-1">
+                    {categorySkills.map((skill, index) => (
+                      <span key={skill.id}>
+                        {skill.name}
+                        {index < categorySkills.length - 1 && ', '}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Projects */}
       {data.projects.length > 0 && (
-        <section className="mb-7">
-          <h2 className="text-lg font-bold text-gray-900 mb-4 uppercase tracking-wider">
+        <section className="mb-6">
+          <h2 className="text-sm font-normal mb-3 border-b border-black pb-1 uppercase">
             PROJECTS
           </h2>
           <div className="space-y-4">
             {data.projects.map((project) => (
-              <div key={project.id} className="relative">
-                <div className="flex justify-between items-start mb-2">
+              <div key={project.id}>
+                <div className="flex justify-between items-start mb-1">
                   <div className="flex-1">
-                    {project.startDate && (
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-bold text-gray-700">
-                          {formatDate(project.startDate)}
-                        </span>
-                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                      </div>
-                    )}
-                    <h3 className="font-bold text-gray-900 text-base mb-1">{project.name}</h3>
-                    {project.technologies && (
-                      <p className="text-orange-600 font-semibold text-sm mb-1">{project.technologies}</p>
-                    )}
-                    {project.url && (
-                      <p className="text-gray-600 text-xs mb-2">{project.url}</p>
-                    )}
+                    <h3 className="text-sm font-normal">{project.name}</h3>
+                    {project.technologies && <p className="text-sm">{project.technologies}</p>}
+                    {project.url && <p className="text-sm">{project.url}</p>}
                   </div>
+                  {project.startDate && (
+                    <div className="text-sm">
+                      {formatDate(project.startDate)}
+                    </div>
+                  )}
                 </div>
                 {project.description && (
-                  <div className="text-gray-700 text-xs leading-relaxed">
+                  <div className="text-sm mt-2">
                     • {project.description}
                   </div>
                 )}
@@ -208,15 +165,15 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
 
       {/* Languages */}
       {data.languages.length > 0 && (
-        <section className="mb-7">
-          <h2 className="text-lg font-bold text-gray-900 mb-4 uppercase tracking-wider">
+        <section className="mb-6">
+          <h2 className="text-sm font-normal mb-3 border-b border-black pb-1 uppercase">
             LANGUAGES
           </h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-1">
             {data.languages.map((lang) => (
-              <div key={lang.id} className="flex justify-between items-center">
-                <span className="text-gray-900 font-semibold text-sm">{lang.name}</span>
-                <span className="text-gray-600 text-xs capitalize">{lang.proficiency}</span>
+              <div key={lang.id} className="flex justify-between">
+                <span className="text-sm">{lang.name}</span>
+                <span className="text-sm capitalize">({lang.proficiency})</span>
               </div>
             ))}
           </div>
